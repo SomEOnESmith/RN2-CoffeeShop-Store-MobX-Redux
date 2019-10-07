@@ -1,10 +1,14 @@
 import React, { Component } from "react";
-import { Spinner } from "native-base";
+import { Spinner, Text } from "native-base";
 import HomePage from "./Components/HomePage";
 
-export default class App extends Component {
+//redux
+import { Provider } from "react-redux";
+import store from "./store";
+
+class App extends Component {
   state = {
-    loading: true
+    loading: false
   };
 
   async componentDidMount() {
@@ -17,8 +21,16 @@ export default class App extends Component {
 
   render() {
     if (this.state.loading) {
-      return <Spinner color="white" />;
+      return <Spinner color="black" />;
     }
-    return <HomePage />;
+    return (
+      <Provider store={store}>
+        <App>
+          <HomePage />
+        </App>
+      </Provider>
+    );
   }
 }
+
+export default App;

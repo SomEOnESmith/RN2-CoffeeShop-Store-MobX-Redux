@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { View } from "react-native";
+import { connect } from "react-redux";
 
 // NativeBase Components
-import { Container, Header } from "native-base";
+import { Container, Header, Text } from "native-base";
 
 // Style
 import styles from "./styles";
@@ -12,8 +13,12 @@ import CoffeeList from "../CoffeeList";
 import CoffeeCart from "../CoffeeCart";
 import CoffeeDetail from "../CoffeeDetail";
 import Login from "../Login";
+import { getCoffeeShops } from "../../store/actions/coffeeActions";
 
 class HomePage extends Component {
+  componentDidMount() {
+    this.props.getCoffeeShops();
+  }
   render() {
     return (
       <Container style={styles.transparent}>
@@ -25,4 +30,11 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage;
+const mapDispatchToProps = dispatch => ({
+  getCoffeeShops: () => dispatch(getCoffeeShops())
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(HomePage);
